@@ -4,6 +4,53 @@ import { getDefaultLeetSpeakMap, type LeetSpeakMap } from './leet-speak';
 import { getAllWords } from './words';
 
 const specialChars = '!#$%&\'()*+,-./:;<=>?@[\\]^_{|}~'.split('');
+const specialCharSet = new Set(specialChars);
+
+const digitChars = '1234567890'.split('');
+const digitCharSet = new Set(digitChars);
+
+function combineRandom(a: string, b: string): string {
+	return coinflip() ? (a + b) : (b + a);
+}
+
+function applyDynamicCharacterInjection(
+	input: string,
+	generateSequence: () => string
+): string {
+	let tackOn = coinflip() ? generateSequence() : '';
+	return combineRandom(tackOn, input);
+}
+
+function generateRandomCharacterSequenceFromSet(
+	charSet: string[],
+	min: number = 1,
+	max: number = 3
+): string {
+
+	const count = randomRange(min, max);
+	let result = choose(charSet);
+
+	for (let i = 1; i < count; i++)
+		result += choose(charSet);
+
+	return result;
+}
+
+function generateDigitCharacterSequence(min: number = 1, max: number = 3): string {
+	return generateRandomCharacterSequenceFromSet(digitChars, min, max);
+}
+
+function applyDigitCharacterInjection(input: string): string {
+	return applyDynamicCharacterInjection(input, generateDigitCharacterSequence);
+}
+
+function generateSpecialCharacterSequence(min: number = 1, max: number = 3): string {
+	return generateRandomCharacterSequenceFromSet(specialChars, min, max);
+}
+
+function applySpecialCharacterInjection(input: string): string {
+	return applyDynamicCharacterInjection(input, generateSpecialCharacterSequence);
+}
 
 export const enum CapitalizationMode {
 	NONE = 'NONE',
@@ -30,66 +77,11 @@ export function getDefaultGeneratorOptions(): PhraseGenerationOptions {
 	return Object.assign({}, phraseGenerationDefaults);
 }
 
-function generateSpecialCharacterSequence(min: number = 1, max: number = 3): string {
-
-	const count = randomRange(min, max);
-	let result = choose(specialChars);
-
-	for (let i = 1; i < count; i++)
-		result += choose(specialChars);
-
-	return result;
-}
-
-function applySpecialCharacterInjection(
-	input: string
-): string {
-	let tackOn = coinflip() ? generateSpecialCharacterSequence() : '';
-	return coinflip() ? (tackOn + input) : (input + tackOn);
-}
-
-function applyRandomLeetSpeak(
-	leetSpeakMap: LeetSpeakMap,
-	input: string,
-	maxReplacements: number = 1
-): string {
-
-	if (!coinflip()) {
-		return input;
-	}
-
-	let result = '';
-	let currentChar: string;
-	let appendText: string;
-	let replaceOptions: string[];
-	let replaceCount = 0;
-
-	for (let i = 0; i < input.length; i++) {
-
-		currentChar = input[i];
-		replaceOptions = leetSpeakMap[currentChar];
-
-		if (replaceCount < maxReplacements
-			&& coinflip()
-			&& Array.isArray(replaceOptions)
-			&& replaceOptions.length > 0) {
-			appendText = choose(replaceOptions);
-			replaceCount++;
-
-		} else {
-			appendText = currentChar;
-		}
-
-		result += appendText;
-	}
-
-	return result;
-}
-
 class PhraseGeneratorContext {
 
 	private readonly distinctWordSet = new Set<string>();
 	private currentWordIndex: number = -1;
+	private accumulator: string = '';
 
 	constructor(
 		private readonly words: string[],
@@ -98,45 +90,99 @@ class PhraseGeneratorContext {
 	) {
 	}
 
-	public generate(): string {
+	private get currentSpecialCharacterCount(): number {
+		return this.accumulator.split('').filter(c => specialCharSet.has(c)).length;
+	}
 
-		this.distinctWordSet.clear();
-		this.currentWordIndex = 0;
+	private get currentDigitCharacterCount(): number {
+		return this.accumulator.split('').filter(c => digitCharSet.has(c)).length;
+	}
+
+	public generate(): string {
 
 		const { requiredLength } = this.options;
 
-		let result: string = '';
+		this.distinctWordSet.clear();
+		this.currentWordIndex = 0;
+		this.accumulator = '';
 
-		while (result.length < requiredLength) {
+		while (this.accumulator.length < requiredLength) {
 
 			const choice = choose(this.words);
 			if (this.distinctWordSet.has(choice)) continue; // already picked this word, try again
 
 			this.distinctWordSet.add(choice);
-			result += this.applyGeneratorOptions(choice);
+			this.accumulator += this.applyGeneratorOptions(choice);
 			this.currentWordIndex++;
 		}
 
-		return result;
+		if (this.currentSpecialCharacterCount <= 0)
+			this.accumulator = combineRandom(this.accumulator, generateSpecialCharacterSequence());
+
+		if (this.currentDigitCharacterCount <= 0)
+			this.accumulator = combineRandom(this.accumulator, generateDigitCharacterSequence());
+
+		return this.accumulator;
 	}
 
 	private applyGeneratorOptions(word: string): string {
 
 		const { capitalizationMode, randomizeWithLeetSpeak, injectSpecialChars } = this.options;
+
 		const shouldCapitalize = capitalizationMode === CapitalizationMode.TITLE_CASE
 			|| (CapitalizationMode.START_CASE && this.currentWordIndex === 0)
 			|| (CapitalizationMode.RANDOMIZE && coinflip());
+
+		const specialCharCount = this.currentSpecialCharacterCount;
+		const hasMinRequiredSpecialChars = specialCharCount >= 2;
 
 		let result = word;
 
 		if (shouldCapitalize)
 			result = capitalize(result);
 
-		if (randomizeWithLeetSpeak)
-			result = applyRandomLeetSpeak(this.leetSpeak, result);
+		if (randomizeWithLeetSpeak && !hasMinRequiredSpecialChars)
+			result = this.applyRandomLeetSpeak(result);
 
-		if (injectSpecialChars)
+		if (injectSpecialChars && !hasMinRequiredSpecialChars)
 			result = applySpecialCharacterInjection(result);
+
+		return result;
+	}
+
+	private applyRandomLeetSpeak(
+		input: string,
+		maxReplacements: number = 1
+	): string {
+
+		if (!coinflip()) {
+			return input;
+		}
+
+		let result = '';
+		let currentChar: string;
+		let appendText: string;
+		let replaceOptions: string[];
+		let replaceCount = 0;
+
+		for (let i = 0; i < input.length; i++) {
+
+			currentChar = input[i];
+			replaceOptions = this.leetSpeak[currentChar];
+
+			if (replaceCount < maxReplacements
+				&& coinflip()
+				&& Array.isArray(replaceOptions)
+				&& replaceOptions.length > 0) {
+				appendText = choose(replaceOptions);
+				replaceCount++;
+
+			} else {
+				appendText = currentChar;
+			}
+
+			result += appendText;
+		}
 
 		return result;
 	}

@@ -2,7 +2,7 @@
 
 An experiment in generating memorable phrases with injected special characters and leet-speak to increase uniqueness.
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.0.5.
+[Try it out](https://jospete.github.io/obsidize-phrag/)
 
 ## Development server
 

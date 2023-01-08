@@ -26,6 +26,10 @@ const phraseGenerationDefaults: PhraseGenerationOptions = {
 	injectSpecialChars: true
 };
 
+export function getDefaultGeneratorOptions(): PhraseGenerationOptions {
+	return Object.assign({}, phraseGenerationDefaults);
+}
+
 function generateSpecialCharacterSequence(min: number = 1, max: number = 3): string {
 
 	const count = randomRange(min, max);

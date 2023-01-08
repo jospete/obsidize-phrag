@@ -1,6 +1,11 @@
 import { Component } from '@angular/core';
-import { PhraseGenerator } from './models/phrase-generator';
 import { environment } from 'src/environments/environment';
+
+import {
+	getDefaultGeneratorOptions,
+	PhraseGenerationOptions,
+	PhraseGenerator
+} from './models/phrase-generator';
 
 @Component({
 	selector: 'app-root',
@@ -11,6 +16,7 @@ export class AppComponent {
 
 	private readonly generator = new PhraseGenerator();
 
+	public generatorOptions: PhraseGenerationOptions = getDefaultGeneratorOptions();
 	public phraseCount: number = 10;
 	public generatedPhrases: string[] = [];
 	public lastCopiedPhrase: string = '';
@@ -29,11 +35,8 @@ export class AppComponent {
 	}
 
 	public regenerate(): void {
-
 		this.generatedPhrases = [];
-
-		// TODO: add UI controls to customize generated values
 		for (let i = 0; i < this.phraseCount; i++)
-			this.generatedPhrases[i] = this.generator.generatePhrase();
+			this.generatedPhrases[i] = this.generator.generatePhrase(this.generatorOptions);
 	}
 }

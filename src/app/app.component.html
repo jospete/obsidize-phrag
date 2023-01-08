@@ -1,7 +1,9 @@
 <div class="content-wrapper" role="main">
 	<section class="content">
 
-		<h1>Obsidize (Phra)se (G)enerator</h1>
+		<h1 class="main-title">
+			Obsidize (Phra)se (G)enerator
+		</h1>
 
 		<br>
 		<br>
@@ -18,7 +20,7 @@
 			<div class="phrase-row" *ngFor="let phrase of generatedPhrases">
 				<div class="phrase-copy-button-col">
 					<button (click)="copyToClipboard(phrase)">
-						Copy to Clipboard
+						Copy
 					</button>
 				</div>
 				<div class="phrase-value-col" [class.last-copied-value]="phrase === lastCopiedPhrase">

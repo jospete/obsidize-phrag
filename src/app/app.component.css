@@ -8,11 +8,17 @@
 	flex-direction: column;
 }
 
+.main-title {
+	text-align: center;
+}
+
 .content {
 	display: flex;
 	align-items: center;
-	justify-content: center;
+	justify-content: flex-start;
 	flex-direction: column;
+	min-height: 82vh;
+	min-width: 50vw;
 }
 
 .regenerate-button {
@@ -22,29 +28,31 @@
 
 .phrase-generation-output {
 	display: flex;
-	align-items: flex-start;
-	justify-content: center;
+	align-items: center;
+	justify-content: flex-start;
 	flex-direction: column;
-	min-width: 450px;
+	width: 100%;
+}
+
+.phrase-copy-button-col {
+	width: 84px;
+	margin-left: 20px;
 }
 
 .phrase-copy-button-col>button {
 	font-size: 0.8em;
-	min-width: 100px;
-	min-height: 30px;
+	min-width: 60px;
+	min-height: 28px;
 }
 
 .phrase-generation-output>.phrase-row {
 	width: 100%;
+	max-width: 550px;
 	display: flex;
 	flex-direction: row;
 	margin-bottom: 4px;
 	background-color: rgba(0, 0, 0, 0.1);
-	padding: 6px;
-}
-
-.phrase-copy-button-col {
-	width: 150px;
+	padding: 8px 0;
 }
 
 .phrase-value-col {
@@ -58,6 +66,8 @@
 	-webkit-transition: color 80ms linear;
 	-ms-transition: color 80ms linear;
 	transition: color 80ms linear;
+	white-space: normal;
+	word-wrap: break-word;
 }
 
 .phrase-value-col.last-copied-value {

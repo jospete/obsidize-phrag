@@ -104,3 +104,11 @@
 	-ms-transition: color 80ms linear;
 	transition: color 80ms linear;
 }
+
+.links-container {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+}

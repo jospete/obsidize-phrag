@@ -29,7 +29,10 @@ export class AppComponent {
 	}
 
 	public regenerate(): void {
+
 		this.generatedPhrases = [];
+
+		// TODO: add UI controls to customize generated values
 		for (let i = 0; i < this.phraseCount; i++)
 			this.generatedPhrases[i] = this.generator.generatePhrase();
 	}

@@ -1,15 +1,24 @@
 .content-wrapper {
 	width: 100%;
 	height: 100vh;
-	background-image: linear-gradient(#c7f5fd, #ffffff);
+	background-image: linear-gradient(#c7f5fd 0 40%, #dbdbdb);
 	display: flex;
 	align-items: center;
-	justify-content: center;
+	justify-content: flex-start;
 	flex-direction: column;
+	overflow-y: scroll;
 }
 
 .main-title {
+	padding: 0 14px;
 	text-align: center;
+	margin-bottom: 4px;
+}
+
+.version-info {
+	font-size: 0.9em;
+	font-weight: bold;
+	color: #535353;
 }
 
 .content {
@@ -17,12 +26,13 @@
 	align-items: center;
 	justify-content: flex-start;
 	flex-direction: column;
-	min-height: 82vh;
 	min-width: 50vw;
+	max-width: 100vw;
 }
 
 .regenerate-button {
 	min-width: 200px;
+	max-width: 90%;
 	font-size: 1.25em;
 }
 
@@ -31,18 +41,8 @@
 	align-items: center;
 	justify-content: flex-start;
 	flex-direction: column;
-	width: 100%;
-}
-
-.phrase-copy-button-col {
-	width: 84px;
-	margin-left: 20px;
-}
-
-.phrase-copy-button-col>button {
-	font-size: 0.8em;
-	min-width: 60px;
-	min-height: 28px;
+	width: 95%;
+	margin: 0 12px;
 }
 
 .phrase-generation-output>.phrase-row {
@@ -50,13 +50,25 @@
 	max-width: 550px;
 	display: flex;
 	flex-direction: row;
+	justify-content: space-between;
 	margin-bottom: 4px;
 	background-color: rgba(0, 0, 0, 0.1);
-	padding: 8px 0;
+	padding: 8px 16px;
+}
+
+.phrase-copy-button-col {
+	float: right;
+	margin-right: 4px;
+}
+
+.phrase-copy-button-col>button {
+	font-size: 0.8em;
+	min-width: 60px;
+	min-height: 28px;
+	float: right;
 }
 
 .phrase-value-col {
-	width: calc(100% - 160px);
 	font-size: 1.1em;
 	color: #585858;
 	display: flex;
@@ -67,7 +79,14 @@
 	-ms-transition: color 80ms linear;
 	transition: color 80ms linear;
 	white-space: normal;
-	word-wrap: break-word;
+	word-break: break-all;
+	padding-right: 6px;
+}
+
+@media only screen and (max-width: 350px) {
+	.phrase-value-col {
+		font-size: 0.82em;
+	}
 }
 
 .phrase-value-col.last-copied-value {
@@ -75,17 +94,4 @@
 	-webkit-transition: color 80ms linear;
 	-ms-transition: color 80ms linear;
 	transition: color 80ms linear;
-}
-
-.footer {
-	position: absolute;
-	bottom: 0;
-	left: 0;
-	right: 0;
-	height: 60px;
-	padding-bottom: 20px;
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	justify-content: center;
 }

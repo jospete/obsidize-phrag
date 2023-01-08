@@ -1,9 +1,15 @@
 <div class="content-wrapper" role="main">
 	<section class="content">
 
+		<br>
+
 		<h1 class="main-title">
 			Obsidize (Phra)se (G)enerator
 		</h1>
+
+		<p class="version-info">
+			Version {{appVersion}}
+		</p>
 
 		<br>
 		<br>
@@ -14,24 +20,24 @@
 
 		<br>
 		<br>
-		<br>
 
 		<div class="phrase-generation-output">
 			<div class="phrase-row" *ngFor="let phrase of generatedPhrases">
+				<div class="phrase-value-col" [class.last-copied-value]="phrase === lastCopiedPhrase">
+					{{phrase}}
+				</div>
 				<div class="phrase-copy-button-col">
 					<button (click)="copyToClipboard(phrase)">
 						Copy
 					</button>
 				</div>
-				<div class="phrase-value-col" [class.last-copied-value]="phrase === lastCopiedPhrase">
-					{{phrase}}
-				</div>
 			</div>
 		</div>
 
-	</section>
+		<br>
+		<br>
+		<br>
+		<br>
 
-	<div class="footer">
-		Version {{appVersion}}
-	</div>
+	</section>
 </div>

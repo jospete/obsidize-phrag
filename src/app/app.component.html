@@ -28,7 +28,7 @@
 				</div>
 				<div class="phrase-copy-button-col">
 					<button (click)="copyToClipboard(phrase)">
-						Copy
+						{{phrase === lastCopiedPhrase ? 'Copied!' : 'Copy'}}
 					</button>
 				</div>
 			</div>

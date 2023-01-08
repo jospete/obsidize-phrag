@@ -33,14 +33,14 @@ button {
 }
 
 button:hover {
-	background: #35586d;
+	background: #71adcf;
 	-webkit-transition: background-color 100ms linear;
 	-ms-transition: background-color 100ms linear;
 	transition: background-color 100ms linear;
 }
 
 button:active {
-	background: #6c9db3;
+	background: #b7d6e7;
 	-webkit-transition: background-color 100ms linear;
 	-ms-transition: background-color 100ms linear;
 	transition: background-color 100ms linear;

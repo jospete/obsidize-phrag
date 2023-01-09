@@ -40,10 +40,6 @@ function generateDigitCharacterSequence(min: number = 1, max: number = 3): strin
 	return generateRandomCharacterSequenceFromSet(digitChars, min, max);
 }
 
-function applyDigitCharacterInjection(input: string): string {
-	return applyDynamicCharacterInjection(input, generateDigitCharacterSequence);
-}
-
 function generateSpecialCharacterSequence(min: number = 1, max: number = 3): string {
 	return generateRandomCharacterSequenceFromSet(specialChars, min, max);
 }

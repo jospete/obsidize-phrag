@@ -98,6 +98,10 @@ class PhraseGeneratorContext {
 		return this.accumulator.split('').filter(c => digitCharSet.has(c)).length;
 	}
 
+	private get hasMinRequiredSpecialChars(): boolean {
+		return this.currentSpecialCharacterCount >= 2;
+	}
+
 	public generate(): string {
 
 		const { requiredLength } = this.options;
@@ -133,18 +137,15 @@ class PhraseGeneratorContext {
 			|| (CapitalizationMode.START_CASE && this.currentWordIndex === 0)
 			|| (CapitalizationMode.RANDOMIZE && coinflip());
 
-		const specialCharCount = this.currentSpecialCharacterCount;
-		const hasMinRequiredSpecialChars = specialCharCount >= 2;
-
 		let result = word;
 
 		if (shouldCapitalize)
 			result = capitalize(result);
 
-		if (randomizeWithLeetSpeak && !hasMinRequiredSpecialChars)
+		if (randomizeWithLeetSpeak && !this.hasMinRequiredSpecialChars)
 			result = this.applyRandomLeetSpeak(result);
 
-		if (injectSpecialChars && !hasMinRequiredSpecialChars)
+		if (injectSpecialChars && !this.hasMinRequiredSpecialChars)
 			result = applySpecialCharacterInjection(result);
 
 		return result;

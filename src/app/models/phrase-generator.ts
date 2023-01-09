@@ -165,7 +165,7 @@ class PhraseGeneratorContext {
 		for (let i = 0; i < input.length; i++) {
 
 			currentChar = input[i];
-			replaceOptions = this.leetSpeak[currentChar];
+			replaceOptions = this.leetSpeak[currentChar.toLowerCase()];
 
 			if (replaceCount < maxReplacements
 				&& coinflip()

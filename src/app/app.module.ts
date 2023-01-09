@@ -1,8 +1,9 @@
-import { NgModule, isDevMode } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from 'src/environments/environment';
 
 @NgModule({
 	bootstrap: [AppComponent],
@@ -10,10 +11,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 	imports: [
 		BrowserModule,
 		ServiceWorkerModule.register('ngsw-worker.js', {
-			enabled: !isDevMode(),
-			// Register the ServiceWorker as soon as the application is stable
-			// or after 3 seconds (whichever comes first).
-			registrationStrategy: 'registerWhenStable:3000'
+			enabled: environment.production
 		})
 	],
 	providers: []

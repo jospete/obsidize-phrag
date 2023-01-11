@@ -13,7 +13,7 @@
 .main-title {
 	padding: 0 14px;
 	text-align: center;
-	margin-bottom: 4px;
+	margin: 48px 0 4px 0;
 }
 
 .version-info {
@@ -36,6 +36,7 @@
 	min-width: 200px;
 	max-width: 90%;
 	font-size: 1.25em;
+	margin: 32px 0 32px 0;
 }
 
 .phrase-generation-output {

@@ -4,7 +4,7 @@ An experiment in generating memorable phrases with injected special characters a
 
 The underlying dictionary used comes from [this repo](https://github.com/dwyl/english-words/blob/master/words_alpha.txt), and contains ~370K words to drastically increase uniqueness of output.
 
-[Try it out](https://jospete.github.io/obsidize-phrag/)
+[Try out the interactive demo here](https://jospete.github.io/obsidize-phrag/)
 
 ## Development server
 

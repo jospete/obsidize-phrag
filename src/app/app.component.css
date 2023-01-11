@@ -94,12 +94,6 @@
 	padding-right: 6px;
 }
 
-@media only screen and (max-width: 350px) {
-	.phrase-value-col {
-		font-size: 0.82em;
-	}
-}
-
 .phrase-value-col.last-copied-value {
 	color: #3fbe34;
 	-webkit-transition: color 80ms linear;
@@ -113,4 +107,21 @@
 	align-items: center;
 	justify-content: center;
 	width: 100%;
+}
+
+.links-container>a {
+	margin: 0 6px;
+	text-align: center;
+}
+
+/* Deals with ridiculously small screens */
+@media only screen and (max-width: 350px) {
+
+	.main-title {
+		font-size: 1.25em;
+	}
+
+	.phrase-value-col {
+		font-size: 0.82em;
+	}
 }

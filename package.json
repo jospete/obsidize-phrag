@@ -13,7 +13,10 @@
 		"version:patch": "npm version patch",
 		"version:publish": "node ./scripts/publish-version.js",
 		"version": "run-s version:copy build:prod copy:prod:build",
-		"bump": "run-s version:patch version:publish"
+		"bump": "run-s version:patch version:publish",
+		"download:dictionary": "node ./scripts/download-word-dictionary.js",
+		"generate:dictionary:module": "node ./scripts/generate-words-module.js",
+		"regenerate:dictionary": "run-s download:dictionary generate:dictionary:module"
 	},
 	"private": true,
 	"dependencies": {

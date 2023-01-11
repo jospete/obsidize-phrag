@@ -1,7 +1,7 @@
 import { choose, coinflip, randomRange } from '../utility/random';
 import { capitalize } from '../utility/text-transformation';
 import { getDefaultLeetSpeakMap, type LeetSpeakMap } from './leet-speak';
-import { getAllWords } from './words';
+import { getAllWords } from '../@generated/dictionary';
 
 const specialChars = '!#$%&\'()*+,-./:;<=>?@[\\]^_{|}~'.split('');
 const specialCharSet = new Set(specialChars);

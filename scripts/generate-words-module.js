@@ -10,7 +10,6 @@ async function main() {
 	if (!fs.existsSync(inputFile))
 		return Promise.reject(`input file does not exist -> ${inputFile}`);
 
-
 	const outputDirectory = path.resolve(cwd, 'src/app/@generated');
 	const outputFile = path.resolve(outputDirectory, 'dictionary.ts');
 

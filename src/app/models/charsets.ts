@@ -21,11 +21,11 @@ function generateRandomCharacterSequenceFromSet(
 	return result;
 }
 
-function generateDigitCharacterSequence(min: number = 1, max: number = 3): string {
+function generateDigitCharacterSequence(min?: number, max?: number): string {
 	return generateRandomCharacterSequenceFromSet(digitChars, min, max);
 }
 
-function generateSpecialCharacterSequence(min: number = 1, max: number = 3): string {
+function generateSpecialCharacterSequence(min?: number, max?: number): string {
 	return generateRandomCharacterSequenceFromSet(specialChars, min, max);
 }
 

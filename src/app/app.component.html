@@ -28,27 +28,37 @@
 	<div class="content">
 		<div class="content-inner">
 
-			<button class="regenerate-button" [disabled]="!didInitialize" (click)="regenerate()">
-				Regenerate
-			</button>
+			<ng-template #loading>
+				<div class="loading">
+					Loading...
+				</div>
+			</ng-template>
 
-			<div class="phrase-generation-output">
-				<div class="phrase-row" *ngFor="let phrase of generatedPhrases">
-					<div class="phrase-value-col" [class.last-copied-value]="phrase === lastCopiedPhrase">
-						{{phrase}}
-					</div>
-					<div class="phrase-copy-button-col">
-						<button (click)="copyToClipboard(phrase)">
-							{{phrase === lastCopiedPhrase ? 'Copied!' : 'Copy'}}
-						</button>
+			<ng-container *ngIf="didInitialize; else loading">
+
+				<button class="regenerate-button" (click)="regenerate()">
+					Regenerate
+				</button>
+
+				<div class="phrase-generation-output">
+					<div class="phrase-row" *ngFor="let phrase of generatedPhrases">
+						<div class="phrase-value-col" [class.last-copied-value]="phrase === lastCopiedPhrase">
+							{{phrase}}
+						</div>
+						<div class="phrase-copy-button-col">
+							<button (click)="copyToClipboard(phrase)">
+								{{phrase === lastCopiedPhrase ? 'Copied!' : 'Copy'}}
+							</button>
+						</div>
 					</div>
 				</div>
-			</div>
+
+			</ng-container>
 
 		</div>
 	</div>
 
-	<div class="footer">
+	<div class="footer" *ngIf="didInitialize">
 		<div class="footer-inner">
 			<a class="version-button-container" href="https://github.com/jospete/obsidize-phrag">
 				<button class="version-button">

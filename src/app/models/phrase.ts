@@ -50,8 +50,7 @@ export class Phrase {
 	public build(): string {
 
 		const {
-			requiredLength,
-			excludeUncommonSpecialChars
+			requiredLength
 		} = this.options;
 
 		this.distinctWordSet.clear();
@@ -71,10 +70,7 @@ export class Phrase {
 		}
 
 		if (!this.hasMinRequiredSpecialChars)
-			this.accumulator = combinedWithRandomSpecialCharacterSequence(
-				this.accumulator,
-				excludeUncommonSpecialChars
-			);
+			this.accumulator = this.transformWithSpecialChars(this.accumulator);
 
 		if (!this.hasMinRequiredDigitChars)
 			this.accumulator = combinedWithRandomDigitCharacterSequence(
@@ -88,13 +84,19 @@ export class Phrase {
 		return this.accumulator.split('').filter(c => predicate(c)).length;
 	}
 
+	private transformWithSpecialChars(input: string): string {
+		return combinedWithRandomSpecialCharacterSequence(
+			input,
+			this.options.excludeUncommonSpecialChars
+		);
+	}
+
 	private applyGeneratorOptionsTo(word: string): string {
 
 		const {
 			capitalizationMode,
 			randomizeWithLeetSpeak,
-			injectSpecialChars,
-			excludeUncommonSpecialChars
+			injectSpecialChars
 		} = this.options;
 
 		const shouldCapitalize = capitalizationMode === CapitalizationMode.TITLE_CASE
@@ -110,7 +112,7 @@ export class Phrase {
 			result = this.transformWithLeetSpeak(result);
 
 		if (injectSpecialChars && !this.hasMinRequiredSpecialChars && coinflip())
-			result = combinedWithRandomSpecialCharacterSequence(result, excludeUncommonSpecialChars);
+			result = this.transformWithSpecialChars(result);
 
 		return result;
 	}

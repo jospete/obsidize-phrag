@@ -22,6 +22,7 @@ export class AppComponent {
 	public generatedPhrases: string[] = [];
 	public lastCopiedPhrase: string = '';
 	public phraseCount: number = 10;
+	public showSettings: boolean = false;
 
 	constructor() {
 		this.initialize().catch(console.error);
@@ -33,6 +34,10 @@ export class AppComponent {
 
 	public get didInitialize(): boolean {
 		return this.mDidInitialize;
+	}
+
+	public toggleShowSettings(): void {
+		this.showSettings = !this.showSettings;
 	}
 
 	public async copyToClipboard(value: string): Promise<void> {

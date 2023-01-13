@@ -1,39 +1,60 @@
 <div class="content-wrapper" role="main">
-	<section class="content">
 
-		<h1 class="main-title">
-			Obsidize (Phra)se (G)enerator
-		</h1>
+	<div class="header">
+		<div class="header-inner">
 
-		<p class="version-info">
-			Version {{appVersion}}
-		</p>
+			<h1 class="title">
+				Phrag
+			</h1>
 
-		<div class="links-container">
-			<a href="https://www.security.org/how-secure-is-my-password/">
-				Strength Tester
-			</a>
-			<a href="https://github.com/jospete/obsidize-phrag">
-				Github Source
-			</a>
+			<button class="settings-button" (click)="toggleShowSettings()">
+				<mat-icon>settings</mat-icon>
+			</button>
+
 		</div>
+	</div>
 
-		<button class="regenerate-button" [disabled]="!didInitialize" (click)="regenerate()">
-			Regenerate
-		</button>
+	<div class="settings" [class.visible]="showSettings">
+		<div class="settings-inner">
 
-		<div class="phrase-generation-output">
-			<div class="phrase-row" *ngFor="let phrase of generatedPhrases">
-				<div class="phrase-value-col" [class.last-copied-value]="phrase === lastCopiedPhrase">
-					{{phrase}}
-				</div>
-				<div class="phrase-copy-button-col">
-					<button (click)="copyToClipboard(phrase)">
-						{{phrase === lastCopiedPhrase ? 'Copied!' : 'Copy'}}
-					</button>
+			TODO: settings
+
+		</div>
+	</div>
+
+	<div class="content">
+		<div class="content-inner">
+
+			<button class="regenerate-button" [disabled]="!didInitialize" (click)="regenerate()">
+				Regenerate
+			</button>
+
+			<div class="phrase-generation-output">
+				<div class="phrase-row" *ngFor="let phrase of generatedPhrases">
+					<div class="phrase-value-col" [class.last-copied-value]="phrase === lastCopiedPhrase">
+						{{phrase}}
+					</div>
+					<div class="phrase-copy-button-col">
+						<button (click)="copyToClipboard(phrase)">
+							{{phrase === lastCopiedPhrase ? 'Copied!' : 'Copy'}}
+						</button>
+					</div>
 				</div>
 			</div>
-		</div>
 
-	</section>
+		</div>
+	</div>
+
+	<div class="footer">
+		<div class="footer-inner">
+			<a class="version-button-container" href="https://github.com/jospete/obsidize-phrag">
+				<button class="version-button">
+					<img class="version-button-icon" src="/assets/icons/github-mark.svg" />
+					<label class="version-button-label">Version {{appVersion}}</label>
+				</button>
+			</a>
+
+		</div>
+	</div>
+
 </div>

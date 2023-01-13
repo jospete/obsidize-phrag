@@ -1,6 +1,9 @@
 import { getDefaultLeetSpeakMap, type LeetSpeakMap } from './leet-speak';
-import { getAllWords } from '../@generated/dictionary';
 import { Phrase } from './phrase';
+
+async function loadWordsAsync(): Promise<string[]> {
+	return import('../@generated/dictionary').then(m => m.getAllWords());
+}
 
 import {
 	PhraseGenerationOptions,
@@ -9,12 +12,14 @@ import {
 
 export class PhraseGenerator {
 
-	private readonly words: string[];
 	private readonly leetSpeak: LeetSpeakMap;
 
-	constructor() {
-		this.words = getAllWords();
+	private constructor(private readonly words: string[]) {
 		this.leetSpeak = getDefaultLeetSpeakMap();
+	}
+
+	public static async createAsync(): Promise<PhraseGenerator> {
+		return new PhraseGenerator(await loadWordsAsync());
 	}
 
 	public generate(options: Partial<PhraseGenerationOptions> = {}): string {

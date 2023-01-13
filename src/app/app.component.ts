@@ -14,7 +14,8 @@ import {
 })
 export class AppComponent {
 
-	private readonly generator = new PhraseGenerator();
+	private generator: PhraseGenerator | undefined;
+	private mDidInitialize = false;
 
 	// TODO: add UI controls for customizable options
 	public generatorOptions: PhraseGenerationOptions = getDefaultGeneratorOptions();
@@ -23,11 +24,15 @@ export class AppComponent {
 	public phraseCount: number = 10;
 
 	constructor() {
-		this.regenerate();
+		this.initialize().catch(console.error);
 	}
 
 	public get appVersion(): string {
 		return environment.version;
+	}
+
+	public get didInitialize(): boolean {
+		return this.mDidInitialize;
 	}
 
 	public async copyToClipboard(value: string): Promise<void> {
@@ -42,6 +47,12 @@ export class AppComponent {
 	}
 
 	private createNewPhrase(): string {
-		return this.generator.generate(this.generatorOptions);
+		return this.generator?.generate(this.generatorOptions) ?? 'N/A';
+	}
+
+	private async initialize(): Promise<void> {
+		this.generator = await PhraseGenerator.createAsync();
+		this.mDidInitialize = true;
+		this.regenerate();
 	}
 }

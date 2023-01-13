@@ -17,7 +17,10 @@
 	<div class="settings" [class.visible]="showSettings">
 		<div class="settings-inner">
 
-			TODO: settings
+			<div class="setting-option">
+				<label>Include Less Common Characters ({{extraSpecialCharsDisplay}})</label>
+				<input type="checkbox" [(ngModel)]="includeAllSpecialCharacters" />
+			</div>
 
 		</div>
 	</div>

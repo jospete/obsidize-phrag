@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { environment } from 'src/environments/environment';
+import { getSpecialCharsExtra } from './models/charsets';
 import { PhraseGenerator } from './models/phrase-generator';
 
 import {
@@ -14,6 +15,7 @@ import {
 })
 export class AppComponent {
 
+	private readonly mExtraSpecialCharsDisplay = getSpecialCharsExtra().join(', ');
 	private generator: PhraseGenerator | undefined;
 	private mDidInitialize = false;
 
@@ -22,7 +24,8 @@ export class AppComponent {
 	public generatedPhrases: string[] = [];
 	public lastCopiedPhrase: string = '';
 	public phraseCount: number = 10;
-	public showSettings: boolean = false;
+	public showSettings: boolean = true;
+	public includeAllSpecialCharacters: boolean = false;
 
 	constructor() {
 		this.initialize().catch(console.error);
@@ -34,6 +37,10 @@ export class AppComponent {
 
 	public get didInitialize(): boolean {
 		return this.mDidInitialize;
+	}
+
+	public get extraSpecialCharsDisplay(): string {
+		return this.mExtraSpecialCharsDisplay;
 	}
 
 	public toggleShowSettings(): void {

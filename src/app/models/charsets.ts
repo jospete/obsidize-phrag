@@ -1,6 +1,8 @@
 import { choose, combineRandom, randomRange } from '../utility/random';
 
-const specialChars = '!#$%&\'()*+,-./:;<=>?@[\\]^_{|}~'.split('');
+const specialCharsBase = '!#$%&()*+,-.:;<=>?@[]^_{}~'.split('');
+const specialCharsExtra = '\'/\\|"'.split('');
+const specialChars = specialCharsBase.concat(specialCharsExtra);
 const specialCharSet = new Set(specialChars);
 
 const digitChars = '1234567890'.split('');
@@ -27,6 +29,10 @@ function generateDigitCharacterSequence(min?: number, max?: number): string {
 
 function generateSpecialCharacterSequence(min?: number, max?: number): string {
 	return generateRandomCharacterSequenceFromSet(specialChars, min, max);
+}
+
+export function getSpecialCharsExtra(): string[] {
+	return specialCharsExtra.slice();
 }
 
 export function isSpecialCharacter(value: string): boolean {

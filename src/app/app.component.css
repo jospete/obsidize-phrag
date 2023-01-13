@@ -46,6 +46,7 @@
 
 .settings {
 	height: 0;
+	margin: 0;
 	width: 100%;
 	display: block;
 	overflow: hidden;
@@ -53,12 +54,33 @@
 }
 
 .settings.visible {
-	height: 200px;
+	height: 30px;
+	margin: 12px 0 0 0;
 }
 
 .settings .settings-inner {
 	height: inherit;
 	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: flex-start;
+}
+
+.setting-option {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.setting-option>label {
+	margin-right: 12px;
+}
+
+.setting-option>input[type="checkbox"] {
+	width: 16px;
+	height: 16px;
 }
 
 .content {

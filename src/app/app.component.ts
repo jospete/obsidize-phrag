@@ -19,13 +19,11 @@ export class AppComponent {
 	private generator: PhraseGenerator | undefined;
 	private mDidInitialize = false;
 
-	// TODO: add UI controls for customizable options
 	public generatorOptions: PhraseGenerationOptions = getDefaultGeneratorOptions();
 	public generatedPhrases: string[] = [];
 	public lastCopiedPhrase: string = '';
 	public phraseCount: number = 10;
-	public showSettings: boolean = true;
-	public includeAllSpecialCharacters: boolean = false;
+	public showSettings: boolean = false;
 
 	constructor() {
 		this.initialize().catch(console.error);
@@ -41,6 +39,14 @@ export class AppComponent {
 
 	public get extraSpecialCharsDisplay(): string {
 		return this.mExtraSpecialCharsDisplay;
+	}
+
+	public get includeAllSpecialCharacters(): boolean {
+		return !this.generatorOptions.excludeUncommonSpecialChars;
+	}
+
+	public set includeAllSpecialCharacters(value: boolean) {
+		this.generatorOptions.excludeUncommonSpecialChars = !value;
 	}
 
 	public toggleShowSettings(): void {

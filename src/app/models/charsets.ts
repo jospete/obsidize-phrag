@@ -23,12 +23,13 @@ function generateRandomCharacterSequenceFromSet(
 	return result;
 }
 
-function generateDigitCharacterSequence(min?: number, max?: number): string {
-	return generateRandomCharacterSequenceFromSet(digitChars, min, max);
+function generateDigitCharacterSequence(): string {
+	return generateRandomCharacterSequenceFromSet(digitChars);
 }
 
-function generateSpecialCharacterSequence(min?: number, max?: number): string {
-	return generateRandomCharacterSequenceFromSet(specialChars, min, max);
+function generateSpecialCharacterSequence(excludeUncommonSpecialChars?: boolean): string {
+	const charSet = excludeUncommonSpecialChars ? specialCharsBase : specialChars;
+	return generateRandomCharacterSequenceFromSet(charSet);
 }
 
 export function getSpecialCharsExtra(): string[] {
@@ -43,8 +44,11 @@ export function isDigitCharacter(value: string): boolean {
 	return digitCharSet.has(value);
 }
 
-export function combinedWithRandomSpecialCharacterSequence(input: string): string {
-	return combineRandom(input, generateSpecialCharacterSequence());
+export function combinedWithRandomSpecialCharacterSequence(
+	input: string,
+	excludeUncommonSpecialChars?: boolean
+): string {
+	return combineRandom(input, generateSpecialCharacterSequence(excludeUncommonSpecialChars));
 }
 
 export function combinedWithRandomDigitCharacterSequence(input: string): string {

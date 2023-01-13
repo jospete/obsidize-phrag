@@ -10,13 +10,15 @@ export interface PhraseGenerationOptions {
 	capitalizationMode: CapitalizationMode;
 	randomizeWithLeetSpeak?: boolean;
 	injectSpecialChars?: boolean;
+	excludeUncommonSpecialChars?: boolean;
 }
 
 const phraseGenerationDefaults: PhraseGenerationOptions = {
 	requiredLength: 20,
 	capitalizationMode: CapitalizationMode.TITLE_CASE,
 	randomizeWithLeetSpeak: true,
-	injectSpecialChars: true
+	injectSpecialChars: true,
+	excludeUncommonSpecialChars: true
 };
 
 export function getDefaultGeneratorOptions(): PhraseGenerationOptions {

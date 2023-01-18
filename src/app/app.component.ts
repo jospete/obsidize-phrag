@@ -15,7 +15,7 @@ import {
 })
 export class AppComponent {
 
-	private readonly mExtraSpecialCharsDisplay = getSpecialCharsExtra().join(', ');
+	private readonly mExtraSpecialChars = getSpecialCharsExtra();
 	private generator: PhraseGenerator | undefined;
 	private mDidInitialize = false;
 
@@ -37,8 +37,8 @@ export class AppComponent {
 		return this.mDidInitialize;
 	}
 
-	public get extraSpecialCharsDisplay(): string {
-		return this.mExtraSpecialCharsDisplay;
+	public get extraSpecialChars(): string[] {
+		return this.mExtraSpecialChars;
 	}
 
 	public get includeAllSpecialCharacters(): boolean {

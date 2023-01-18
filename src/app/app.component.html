@@ -18,7 +18,8 @@
 		<div class="settings-inner">
 
 			<div class="setting-option">
-				<label>Include Uncommon Special Characters ({{extraSpecialCharsDisplay}})</label>
+				<label>Use Characters <app-charset [chars]="extraSpecialChars"></app-charset>
+				</label>
 				<input type="checkbox" [(ngModel)]="includeAllSpecialCharacters" />
 			</div>
 

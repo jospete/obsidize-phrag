@@ -8,10 +8,11 @@ import { CommonModule } from '@angular/common';
 
 import { AppComponent } from './app.component';
 import { environment } from 'src/environments/environment';
+import { CharsetComponent } from './components/charset/charset.component';
 
 @NgModule({
 	bootstrap: [AppComponent],
-	declarations: [AppComponent],
+	declarations: [AppComponent, CharsetComponent],
 	imports: [
 		BrowserModule,
 		BrowserAnimationsModule,

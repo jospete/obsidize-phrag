@@ -1,6 +1,16 @@
+#!/usr/bin/env node
+
 const fs = require('fs');
 const path = require('path');
+const { gzip } = require('pako');
 const { mkdirpSync } = require('./utility');
+
+function createModuleOutput(options) {
+	return `// AUTO-GENERATED, DO NOT MODIFY
+import { inflateJson } from '../utility/compression';
+
+export const getAllWords = (): string[] => inflateJson(\`${options.compressedContent}\`);`;
+}
 
 async function main() {
 
@@ -17,7 +27,9 @@ async function main() {
 
 	const input = fs.readFileSync(inputFile).toString();
 	const outputList = input.split('\n').map(v => v.trim().replace(/\s/g, ''));
-	const output = `export const getAllWords = (): string[] => JSON.parse(\`${JSON.stringify(outputList)}\`);`;
+	const outputBytes = new Uint8Array(Buffer.from(JSON.stringify(outputList), 'utf-8').buffer);
+	const compressedContent = Buffer.from(gzip(outputBytes)).toString('base64');
+	const output = createModuleOutput({ compressedContent });
 
 	fs.writeFileSync(outputFile, output, 'utf-8');
 }

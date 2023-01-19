@@ -39,6 +39,11 @@
 	background: transparent;
 	min-width: 50px;
 	min-height: 32px;
+	color: rgb(255, 255, 255);
+}
+
+.settings-button:hover {
+	color: rgba(241, 241, 241, 0.966);
 }
 
 .settings-button:active {
@@ -214,6 +219,11 @@
 	border: 2px solid rgba(3, 25, 99, 0.5);
 	background: rgba(1, 1, 1, 0);
 	color: rgba(24, 55, 158, 0.5);
+}
+
+.version-button:hover {
+	background: rgba(217, 237, 247, 0.952);
+	border: 2px solid rgba(95, 119, 197, 0.5);
 }
 
 .version-button:active {

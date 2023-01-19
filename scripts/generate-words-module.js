@@ -12,6 +12,16 @@ import { inflateJson } from '../utility/compression';
 export const getAllWords = (): string[] => inflateJson(\`${options.compressedContent}\`);`;
 }
 
+function readDictionaryList(inputFile) {
+	const input = fs.readFileSync(inputFile).toString();
+	return input.split('\n').map(v => v.trim().replace(/\s/g, ''));
+}
+
+function compressAndSerializeObject(value) {
+	const outputBytes = new Uint8Array(Buffer.from(JSON.stringify(value), 'utf-8').buffer);
+	return Buffer.from(gzip(outputBytes)).toString('base64');
+}
+
 async function main() {
 
 	const cwd = process.cwd();
@@ -25,10 +35,7 @@ async function main() {
 
 	mkdirpSync(outputDirectory);
 
-	const input = fs.readFileSync(inputFile).toString();
-	const outputList = input.split('\n').map(v => v.trim().replace(/\s/g, ''));
-	const outputBytes = new Uint8Array(Buffer.from(JSON.stringify(outputList), 'utf-8').buffer);
-	const compressedContent = Buffer.from(gzip(outputBytes)).toString('base64');
+	const compressedContent = compressAndSerializeObject(readDictionaryList(inputFile));
 	const output = createModuleOutput({ compressedContent });
 
 	fs.writeFileSync(outputFile, output, 'utf-8');

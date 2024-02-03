@@ -61,6 +61,17 @@ function generateDictionaryChunks(wordInputFile, outputDirectory) {
 	}
 }
 
+function generateDictionaryModule(outputDirectory) {
+	const outputFilePath = path.resolve(outputDirectory, `index.ts`);
+	let output = `export const chunks = {`;
+	for (const letter of alphabet) {
+		output += `\n\t${letter}: () => import('./${letter}').then((m) => m.${letter}),`;
+	}
+	output += `\n};\n`;
+
+	fs.writeFileSync(outputFilePath, output, 'utf8');
+}
+
 async function main() {
 	const cwd = process.cwd();
 	const inputFile = path.resolve(cwd, 'tmp/word-list.txt');
@@ -68,6 +79,7 @@ async function main() {
 
 	if (fs.existsSync(inputFile)) {
 		generateDictionaryChunks(inputFile, outputDirectory);
+		generateDictionaryModule(outputDirectory);
 	} else {
 		return Promise.reject(`input file does not exist -> ${inputFile}`);
 	}

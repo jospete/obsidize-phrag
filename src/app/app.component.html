@@ -18,8 +18,10 @@
 		<div class="settings-inner">
 
 			<div class="setting-option">
-				<label>Use Characters <app-charset [chars]="extraSpecialChars"></app-charset>
-				</label>
+				<div class="settings-option-label-wrapper">
+					<label>Use Advanced Characters</label>
+					<app-charset [chars]="extraSpecialChars"></app-charset>
+				</div>
 				<input type="checkbox" [(ngModel)]="includeAllSpecialCharacters" />
 			</div>
 

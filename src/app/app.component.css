@@ -53,6 +53,7 @@
 .settings {
 	height: 0;
 	margin: 0;
+	min-height: 0;
 	width: 100%;
 	display: block;
 	overflow: hidden;
@@ -60,12 +61,11 @@
 }
 
 .settings.visible {
-	height: 30px;
+	min-height: 56px;
 	margin: 12px 0 0 0;
 }
 
 .settings .settings-inner {
-	height: inherit;
 	width: 100%;
 	display: flex;
 	flex-direction: column;
@@ -73,11 +73,23 @@
 	justify-content: flex-start;
 }
 
+label {
+	color: #585858;
+}
+
 .setting-option {
 	display: flex;
 	flex-direction: row;
 	align-items: center;
 	justify-content: space-between;
+	height: fit-content;
+}
+
+.settings-option-label-wrapper {
+	display: flex;
+	flex-direction: column;
+	margin-right: 12px;
+	max-width: 70vw;
 }
 
 .setting-option>label {
@@ -87,6 +99,9 @@
 .setting-option>input[type="checkbox"] {
 	width: 16px;
 	height: 16px;
+	border: none;
+	border-radius: 50%;
+	accent-color: #009c08;
 }
 
 .loading {

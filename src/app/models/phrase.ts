@@ -69,13 +69,13 @@ export class Phrase {
 			this.currentWordIndex++;
 		}
 
-		if (!this.hasMinRequiredSpecialChars)
+		for (let i = 0; i < 10 && !this.hasMinRequiredSpecialChars; i++) {
 			this.accumulator = this.transformWithSpecialChars(this.accumulator);
+		}
 
-		if (!this.hasMinRequiredDigitChars)
-			this.accumulator = combinedWithRandomDigitCharacterSequence(
-				this.accumulator
-			);
+		for (let i = 0; i < 10 && !this.hasMinRequiredDigitChars; i++) {
+			this.accumulator = combinedWithRandomDigitCharacterSequence(this.accumulator);
+		}
 
 		return this.accumulator;
 	}
@@ -85,6 +85,11 @@ export class Phrase {
 	}
 
 	private transformWithSpecialChars(input: string): string {
+
+		if (this.options.randomizeWithLeetSpeak && coinflip()) {
+			return this.transformWithLeetSpeak(input);
+		}
+
 		return combinedWithRandomSpecialCharacterSequence(
 			input,
 			this.options.excludeUncommonSpecialChars
@@ -92,12 +97,7 @@ export class Phrase {
 	}
 
 	private applyGeneratorOptionsTo(word: string): string {
-
-		const {
-			capitalizationMode,
-			randomizeWithLeetSpeak,
-			injectSpecialChars
-		} = this.options;
+		const {capitalizationMode} = this.options;
 
 		const shouldCapitalize = capitalizationMode === CapitalizationMode.TITLE_CASE
 			|| (CapitalizationMode.START_CASE && this.currentWordIndex === 0)
@@ -107,12 +107,6 @@ export class Phrase {
 
 		if (shouldCapitalize)
 			result = capitalize(result);
-
-		if (randomizeWithLeetSpeak && !this.hasMinRequiredSpecialChars && coinflip())
-			result = this.transformWithLeetSpeak(result);
-
-		if (injectSpecialChars && !this.hasMinRequiredSpecialChars && coinflip())
-			result = this.transformWithSpecialChars(result);
 
 		return result;
 	}

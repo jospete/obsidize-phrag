@@ -1,10 +1,6 @@
 import { getDefaultLeetSpeakMap, type LeetSpeakMap } from './leet-speak';
 import { Phrase } from './phrase';
-
-async function loadWordsAsync(): Promise<string[]> {
-	return import('../@generated/dictionary').then(m => m.getAllWords());
-}
-
+import { getAllWords } from './xkcd-words';
 import {
 	PhraseGenerationOptions,
 	sanitizeGeneratorOptions
@@ -19,7 +15,7 @@ export class PhraseGenerator {
 	}
 
 	public static async createAsync(): Promise<PhraseGenerator> {
-		return new PhraseGenerator(await loadWordsAsync());
+		return new PhraseGenerator(getAllWords());
 	}
 
 	public generate(options: Partial<PhraseGenerationOptions> = {}): string {

@@ -17,7 +17,7 @@ const phraseGenerationDefaults: PhraseGenerationOptions = {
 	requiredLength: 20,
 	capitalizationMode: CapitalizationMode.TITLE_CASE,
 	randomizeWithLeetSpeak: true,
-	injectSpecialChars: true,
+	injectSpecialChars: false,
 	excludeUncommonSpecialChars: true
 };
 

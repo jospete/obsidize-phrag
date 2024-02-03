@@ -1,7 +1,7 @@
 import { choose, combineRandom, randomRange } from '../utility/random';
 
-const specialCharsBase = '!#$%&()*+,-.:;<=>?@[]^_{}~'.split('');
-const specialCharsExtra = '\'/\\|"'.split('');
+const specialCharsBase = '!#$+-<=>?@^_~'.split('');
+const specialCharsExtra = '\'/\\|"*{}&()%[],.:;'.split('');
 const specialChars = specialCharsBase.concat(specialCharsExtra);
 const specialCharSet = new Set(specialChars);
 

@@ -72,19 +72,19 @@
 				"serve": {
 					"builder": "@angular-devkit/build-angular:dev-server",
 					"configurations": {
-						"production": {
-							"browserTarget": "obsidize-phrag:build:production"
+            "production": {
+              "buildTarget": "obsidize-phrag:build:production"
 						},
-						"development": {
-							"browserTarget": "obsidize-phrag:build:development"
+            "development": {
+              "buildTarget": "obsidize-phrag:build:development"
 						}
 					},
 					"defaultConfiguration": "development"
 				},
 				"extract-i18n": {
 					"builder": "@angular-devkit/build-angular:extract-i18n",
-					"options": {
-						"browserTarget": "obsidize-phrag:build"
+          "options": {
+            "buildTarget": "obsidize-phrag:build"
 					}
 				},
 				"test": {

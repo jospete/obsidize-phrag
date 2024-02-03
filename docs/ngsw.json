@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1706990021804,
+  "timestamp": 1706990946458,
   "index": "/index.html",
   "assetGroups": [
     {
@@ -13,7 +13,7 @@
       "urls": [
         "/favicon.ico",
         "/index.html",
-        "/main.3700e44390415984.js",
+        "/main.43df22e12e1656ee.js",
         "/manifest.webmanifest",
         "/polyfills.4fc138b804ed2fea.js",
         "/runtime.f2c7abfae41d2263.js",
@@ -29,6 +29,8 @@
         "ignoreVary": true
       },
       "urls": [
+        "/assets/icons/favicon-16x16.png",
+        "/assets/icons/favicon-32x32.png",
         "/assets/icons/github-mark.svg",
         "/assets/icons/icon-128x128.png",
         "/assets/icons/icon-144x144.png",
@@ -45,6 +47,8 @@
   ],
   "dataGroups": [],
   "hashTable": {
+    "/assets/icons/favicon-16x16.png": "6742d40c7385bf94c00407652ae9e03bd52fa8de",
+    "/assets/icons/favicon-32x32.png": "aec4484f8883a6b203a32685dc4a39bc168929d7",
     "/assets/icons/github-mark.svg": "6b232428006160df976af8f0585a2bee5b1059de",
     "/assets/icons/icon-128x128.png": "ddd69271125bcab30837cdbce8d98ae745d6c5ec",
     "/assets/icons/icon-144x144.png": "92dee7ed137af4dc7c660a685fd682287a412bfd",
@@ -55,9 +59,9 @@
     "/assets/icons/icon-512x512.png": "89af3d43719ebc799f2a4ce4461721c5597dca3e",
     "/assets/icons/icon-72x72.png": "a1ca49bf5542ae643f34be22dc66c8c6d6c18891",
     "/assets/icons/icon-96x96.png": "4369c99fe73c54d1e22bebad1de92a697de6c73a",
-    "/favicon.ico": "22f6a4a3bcaafafb0254e0f2fa4ceb89e505e8b2",
-    "/index.html": "32213cabfe9c21c99e94a1b6cccea6097347e517",
-    "/main.3700e44390415984.js": "4c9f2c0b9a0bed7e535868db477ead15d6609a79",
+    "/favicon.ico": "65c425800dac7cede38813b35dc87e002b1bff65",
+    "/index.html": "eb69d53bf9e8127e07bfde564ce4d1bece08d369",
+    "/main.43df22e12e1656ee.js": "e17c7b846de6aadd3af5d69624d3e37798aa2733",
     "/manifest.webmanifest": "9a330d9c98ededbac69da7fbb5fbe7d4ee3e90a7",
     "/polyfills.4fc138b804ed2fea.js": "c1dab8849a1929443d7bc2bada6692839576ac10",
     "/runtime.f2c7abfae41d2263.js": "924579abd6e870969b0b5650a3f7d0975be3adf7",

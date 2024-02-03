@@ -60,8 +60,9 @@ export class AppComponent {
 
 	public regenerate(): void {
 		this.generatedPhrases = [];
-		for (let i = 0; i < this.phraseCount; i++)
+		for (let i = 0; i < this.phraseCount; i++) {
 			this.generatedPhrases[i] = this.createNewPhrase();
+		}
 	}
 
 	private createNewPhrase(): string {

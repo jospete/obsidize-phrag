@@ -2,43 +2,75 @@
 
 const fs = require('fs');
 const path = require('path');
-const { gzip } = require('pako');
 const { mkdirpSync } = require('./utility');
 
-function createModuleOutput(options) {
-	return `// AUTO-GENERATED, DO NOT MODIFY
-import { inflateJson } from '../utility/compression';
+const alphabet = 'abcdefghijklmnopqrstuvwxyz'.split('');
 
-export const getAllWords = (): string[] => inflateJson(\`${options.compressedContent}\`);`;
+function isValidWord(word) {
+	return word.length >= 4 && word.length <= 7 && word[0] !== word[1];
+}
+
+function serializeWord(word) {
+	return `'${word}'`;
+}
+
+function sanitizeInputWord(word) {
+	return word.trim().replace(/\s/g, '');
 }
 
 function readDictionaryList(inputFile) {
 	const input = fs.readFileSync(inputFile).toString();
-	return input.split('\n').map(v => v.trim().replace(/\s/g, ''));
+	return input.split('\n').map(sanitizeInputWord);
 }
 
-function compressAndSerializeObject(value) {
-	const outputBytes = new Uint8Array(Buffer.from(JSON.stringify(value), 'utf-8').buffer);
-	return Buffer.from(gzip(outputBytes)).toString('base64');
+function generateLetterChunk(letter, wordList, outputFilePath) {
+	const serializedWords = wordList.filter(isValidWord).map(serializeWord).join(',');
+	const output = `export const ${letter} = [${serializedWords}];`;
+	fs.writeFileSync(outputFilePath, output, 'utf8');
+}
+
+function sortByFirstLetter(words) {
+	const result = {};
+
+	for (const word of words) {
+		const firstLetter = word.substring(0, 1);
+		let wordsStartingWith = result[firstLetter];
+
+		if (!wordsStartingWith) {
+			wordsStartingWith = [];
+			result[firstLetter] = wordsStartingWith;
+		}
+
+		wordsStartingWith.push(word);
+	}
+
+	return result;
+}
+
+function generateDictionaryChunks(wordInputFile, outputDirectory) {
+	mkdirpSync(outputDirectory);
+
+	const wordsTable = sortByFirstLetter(readDictionaryList(wordInputFile));
+
+	for (const letter of alphabet) {
+		const wordList = wordsTable[letter];
+		if (wordList) {
+			const outputFilePath = path.resolve(outputDirectory, `${letter}.ts`);
+			generateLetterChunk(letter, wordList, outputFilePath);
+		}
+	}
 }
 
 async function main() {
-
 	const cwd = process.cwd();
 	const inputFile = path.resolve(cwd, 'tmp/word-list.txt');
+	const outputDirectory = path.resolve(cwd, 'src/app/@generated/dictionary');
 
-	if (!fs.existsSync(inputFile))
+	if (fs.existsSync(inputFile)) {
+		generateDictionaryChunks(inputFile, outputDirectory);
+	} else {
 		return Promise.reject(`input file does not exist -> ${inputFile}`);
-
-	const outputDirectory = path.resolve(cwd, 'src/app/@generated');
-	const outputFile = path.resolve(outputDirectory, 'dictionary.ts');
-
-	mkdirpSync(outputDirectory);
-
-	const compressedContent = compressAndSerializeObject(readDictionaryList(inputFile));
-	const output = createModuleOutput({ compressedContent });
-
-	fs.writeFileSync(outputFile, output, 'utf-8');
+	}
 }
 
 main().catch(console.error);

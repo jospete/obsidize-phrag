@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { getSpecialCharsExtra } from './models/charsets';
 import { PhraseGenerator } from './models/phrase-generator';
@@ -7,6 +7,9 @@ import {
 	getDefaultGeneratorOptions,
 	PhraseGenerationOptions
 } from './models/phrase-generator-options';
+
+const shortTitle = 'Phrag';
+const longTitle = '(Phra)se (G)enerator';
 
 @Component({
 	selector: 'app-root',
@@ -17,7 +20,8 @@ export class AppComponent {
 
 	private readonly mExtraSpecialChars = getSpecialCharsExtra();
 	private generator: PhraseGenerator | undefined;
-	private mDidInitialize = false;
+	private mDidInitialize: boolean = false;
+	private mDynamicTitle: string = longTitle;
 
 	public generatorOptions: PhraseGenerationOptions = getDefaultGeneratorOptions();
 	public generatedPhrases: string[] = [];
@@ -45,8 +49,19 @@ export class AppComponent {
 		return !this.generatorOptions.excludeUncommonSpecialChars;
 	}
 
+	public get dynamicTitle(): string {
+		return this.mDynamicTitle;
+	}
+
 	public set includeAllSpecialCharacters(value: boolean) {
 		this.generatorOptions.excludeUncommonSpecialChars = !value;
+	}
+
+	@HostListener('window:resize', ['$event'])
+	public onResize(event: any): void {
+		this.mDynamicTitle = event.target.innerWidth > 500
+			? longTitle
+			: shortTitle;
 	}
 
 	public toggleShowSettings(): void {

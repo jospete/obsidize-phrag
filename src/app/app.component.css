@@ -21,6 +21,10 @@
 }
 
 .title {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
 	text-align: center;
 	margin: 0;
 	font-size: 1.25em;
@@ -30,6 +34,11 @@
 	max-width: 70vw;
 	margin: 0 auto;
 	padding-top: 12px;
+	transform: translateX(-6px);
+}
+
+.title-text {
+	padding-left: 6px;
 }
 
 .settings-button {

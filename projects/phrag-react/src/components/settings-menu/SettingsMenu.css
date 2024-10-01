@@ -1,0 +1,71 @@
+.settings {
+	height: 0;
+	margin: 0;
+	min-height: 0;
+	width: 100%;
+	display: block;
+	overflow: hidden;
+	transition: all ease 0.25s;
+}
+
+.settings.visible {
+	min-height: 56px;
+	margin: 12px 0 0 0;
+}
+
+.settings .settings-inner {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: flex-start;
+}
+
+.setting-option {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+	height: fit-content;
+}
+
+.settings-option-label-wrapper {
+	display: flex;
+	flex-direction: column;
+	margin-right: 12px;
+	max-width: 70vw;
+}
+
+.setting-option>label {
+	margin-right: 8px;
+}
+
+.setting-option>input[type="checkbox"] {
+	width: 16px;
+	height: 16px;
+	border: none;
+	border-radius: 50%;
+	accent-color: #009c08;
+}
+
+.charset-block {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+}
+
+.char-block {
+	display: inline-block;
+	position: relative;
+	margin: 1px;
+	padding: 1px;
+	color: rgb(255, 255, 255);
+	background: #7a7a7a;
+	border-radius: 4px;
+	width: 14px;
+	height: 14px;
+	font-weight: 500;
+	font-size: 0.7em;
+	text-align: center;
+	vertical-align: middle;
+}

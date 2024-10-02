@@ -8,6 +8,8 @@ const specialCharSet = new Set(specialChars);
 const digitChars = '1234567890'.split('');
 const digitCharSet = new Set(digitChars);
 
+export {specialCharsBase, specialChars}
+
 function generateRandomCharacterSequenceFromSet(
 	charSet: string[],
 	min: number = 1,

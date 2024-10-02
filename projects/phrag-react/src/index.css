@@ -1,3 +1,7 @@
+:root {
+	--color-success: #3fbe34ff;
+}
+
 html,
 body {
 	font-size: 1em;

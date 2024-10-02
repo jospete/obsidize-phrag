@@ -9,7 +9,7 @@
 }
 
 .settings.visible {
-	min-height: 56px;
+	min-height: 160px;
 	margin: 12px 0 0 0;
 }
 
@@ -24,9 +24,11 @@
 .setting-option {
 	display: flex;
 	flex-direction: row;
-	align-items: center;
-	justify-content: space-between;
-	height: fit-content;
+	align-items: flex-start;
+	justify-content: flex-start;
+	min-height: 24px;
+	flex-wrap: wrap;
+	flex: 1 1 auto;
 }
 
 .settings-option-label-wrapper {
@@ -40,12 +42,16 @@
 	margin-right: 8px;
 }
 
+.checkbox-label {
+	flex: 1;
+}
+
 .setting-option>input[type="checkbox"] {
 	width: 16px;
 	height: 16px;
 	border: none;
 	border-radius: 50%;
-	accent-color: #009c08;
+	accent-color: var(--color-success);
 }
 
 .charset-block {
@@ -68,4 +74,61 @@
 	font-size: 0.7em;
 	text-align: center;
 	vertical-align: middle;
+}
+
+.special-char-multiselect>.special-char-button {
+	min-width: 24px;
+	min-height: 24px;
+	margin: 2px;
+}
+
+.special-char-multiselect>.special-char-button.active {
+	background-color: var(--color-success);
+}
+
+.range-slider {
+	width: 100%;
+	display: flex;
+	flex: 1;
+	justify-content: space-between;
+}
+
+.range-slider>input[type="range"] {
+	accent-color: var(--color-success);
+	width: 60%;
+}
+
+.slider-value-label {
+	max-height: 1em;
+}
+
+.special-chars-label {
+	margin-bottom: 6px;
+}
+
+@media screen and (min-width: 520px) {
+	.setting-option {
+		width: 450px;
+		margin: 6px 5vw;
+	}
+}
+
+@media screen and (max-width: 519px) {
+	.settings.visible {
+		min-height: 230px;
+	}
+	.setting-option {
+		width: 85%;
+		margin: 6px auto;
+	}
+}
+
+@media screen and (max-width: 360px) {
+	.slider-value-label {
+		padding-top: 0.5em;
+		margin-left: 12px;
+	}
+	.range-slider>input[type="range"] {
+		width: 84%;
+	}
 }

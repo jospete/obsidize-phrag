@@ -35,6 +35,8 @@ const SettingsMenu: React.FC<SettingsMenuProps> = (props: SettingsMenuProps) => 
 		}
 	};
 
+	const specialCharsArray = specialChars.split('');
+
 	return (
 		<div className={"settings" + (settingsVisible ? ' visible' : '')}>
 			<div className="settings-inner">
@@ -64,7 +66,7 @@ const SettingsMenu: React.FC<SettingsMenuProps> = (props: SettingsMenuProps) => 
 				<div className="setting-option">
 					<label className="special-chars-label">Include Special Characters</label>
 					<div className="special-char-multiselect">
-						{specialChars.map(v => (
+						{specialCharsArray.map(v => (
 							<button
 								key={v}
 								className={'special-char-button ' + (includeSpecialCharacters.includes(v) ? 'active' : '')}

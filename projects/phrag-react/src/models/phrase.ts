@@ -2,7 +2,6 @@ import { LeetSpeakMap } from './leet-speak';
 import { capitalize } from '../utility/text-transformation';
 import { choose, coinflip } from '../utility/random';
 import { CapitalizationMode, PhraseGenerationOptions } from './phrase-generator-options';
-
 import {
 	combinedWithRandomDigitCharacterSequence,
 	combinedWithRandomSpecialCharacterSequence,
@@ -19,12 +18,16 @@ export class Phrase {
 	private readonly distinctWordSet = new Set<string>();
 	private currentWordIndex: number = -1;
 	private accumulator: string = '';
+	private specialCharsArray: string[] = [];
 
 	constructor(
 		private readonly words: string[],
 		private readonly leetSpeak: LeetSpeakMap,
 		private readonly options: PhraseGenerationOptions
 	) {
+		if (typeof options.includeSpecialCharacters === 'string') {
+			this.specialCharsArray = options.includeSpecialCharacters.split('');
+		}
 	}
 
 	public get value(): string {
@@ -40,7 +43,7 @@ export class Phrase {
 	}
 
 	private get hasMinRequiredSpecialChars(): boolean {
-		return this.currentSpecialCharacterCount >= 2;
+		return this.currentSpecialCharacterCount >= 1;
 	}
 
 	private get hasMinRequiredDigitChars(): boolean {
@@ -53,11 +56,12 @@ export class Phrase {
 			requiredLength
 		} = this.options;
 
+		const requiredWordLength = requiredLength - 2;
 		this.distinctWordSet.clear();
 		this.currentWordIndex = 0;
 		this.accumulator = '';
 
-		while (this.accumulator.length < requiredLength) {
+		while (this.accumulator.length < requiredWordLength) {
 
 			const choice = choose(this.words);
 
@@ -85,15 +89,11 @@ export class Phrase {
 	}
 
 	private transformWithSpecialChars(input: string): string {
-
-		if (this.options.randomizeWithLeetSpeak && coinflip()) {
+		if (this.options.useLeetSpeak && coinflip()) {
 			return this.transformWithLeetSpeak(input);
 		}
 
-		return combinedWithRandomSpecialCharacterSequence(
-			input,
-			this.options.excludeUncommonSpecialChars
-		);
+		return combinedWithRandomSpecialCharacterSequence(input, this.specialCharsArray);
 	}
 
 	private applyGeneratorOptionsTo(word: string): string {

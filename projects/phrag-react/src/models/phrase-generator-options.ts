@@ -15,10 +15,10 @@ export interface PhraseGenerationOptions {
 }
 
 const phraseGenerationDefaults: PhraseGenerationOptions = {
-	requiredLength: 20,
+	requiredLength: 16,
 	capitalizationMode: CapitalizationMode.TITLE_CASE,
-	useLeetSpeak: true,
-	includeSpecialCharacters: specialCharsBase.join('')
+	useLeetSpeak: false,
+	includeSpecialCharacters: specialCharsBase
 };
 
 export function getDefaultGeneratorOptions(): PhraseGenerationOptions {

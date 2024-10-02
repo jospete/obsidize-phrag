@@ -1,19 +1,19 @@
 import { choose, combineRandom, randomRange } from '../utility/random';
 
-const specialCharsBase = '!#$+-<=>?@^_~'.split('');
-const specialCharsExtra = '\'/\\|"*{}&()%[],.:;'.split('');
-const specialChars = specialCharsBase.concat(specialCharsExtra);
-const specialCharSet = new Set(specialChars);
+export const digitChars = '1234567890';
+export const specialCharsBase = '!@#$^+-=_?';
+export const specialCharsExtra = '<>~\'/\\|"*{}&()%[],.:;';
+export const specialChars = specialCharsBase + specialCharsExtra;
 
-const digitChars = '1234567890'.split('');
-const digitCharSet = new Set(digitChars);
-
-export {specialCharsBase, specialChars}
+const specialCharsArray = specialChars.split('');
+const digitCharsArray = digitChars.split('');
+const specialCharSet = new Set(specialCharsArray);
+const digitCharSet = new Set(digitCharsArray);
 
 function generateRandomCharacterSequenceFromSet(
 	charSet: string[],
 	min: number = 1,
-	max: number = 3
+	max: number = 2
 ): string {
 
 	const count = randomRange(min, max);
@@ -25,19 +25,6 @@ function generateRandomCharacterSequenceFromSet(
 	return result;
 }
 
-function generateDigitCharacterSequence(): string {
-	return generateRandomCharacterSequenceFromSet(digitChars);
-}
-
-function generateSpecialCharacterSequence(excludeUncommonSpecialChars?: boolean): string {
-	const charSet = excludeUncommonSpecialChars ? specialCharsBase : specialChars;
-	return generateRandomCharacterSequenceFromSet(charSet);
-}
-
-export function getSpecialCharsExtra(): string[] {
-	return specialCharsExtra.slice();
-}
-
 export function isSpecialCharacter(value: string): boolean {
 	return specialCharSet.has(value);
 }
@@ -46,13 +33,13 @@ export function isDigitCharacter(value: string): boolean {
 	return digitCharSet.has(value);
 }
 
-export function combinedWithRandomSpecialCharacterSequence(
-	input: string,
-	excludeUncommonSpecialChars?: boolean
-): string {
-	return combineRandom(input, generateSpecialCharacterSequence(excludeUncommonSpecialChars));
+export function combinedWithRandomDigitCharacterSequence(input: string): string {
+	return combineRandom(input, generateRandomCharacterSequenceFromSet(digitCharsArray));
 }
 
-export function combinedWithRandomDigitCharacterSequence(input: string): string {
-	return combineRandom(input, generateDigitCharacterSequence());
+export function combinedWithRandomSpecialCharacterSequence(
+	input: string,
+	includeSpecialChars: string[]
+): string {
+	return combineRandom(input, generateRandomCharacterSequenceFromSet(includeSpecialChars));
 }

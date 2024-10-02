@@ -1,13 +1,16 @@
 import { Settings } from '@mui/icons-material';
-import { useState } from 'react';
-import logo from '../assets/icons/favicon-32x32.png';
+import React from 'react';
+import logo from '../../assets/icons/favicon-32x32.png';
 import './Header.css';
 
-function Header(): JSX.Element {
-	const [showSettings, setShowSettings] = useState(false);
+export interface HeaderProps {
+	toggleShowSettings(): void;
+}
 
-	const toggleShowSettings = () => {
-	};
+const Header: React.FC<HeaderProps> = (props: HeaderProps) => {
+	const {
+		toggleShowSettings
+	} = props;
 
 	return (
 		<div className="header">
@@ -22,6 +25,6 @@ function Header(): JSX.Element {
 			</div>
 		</div>
 	);
-}
+};
 
 export default Header;

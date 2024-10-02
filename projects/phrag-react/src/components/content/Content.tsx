@@ -1,15 +1,24 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import './Content.css';
 
-function Content(): JSX.Element {
-	const [initialized, setInitialized] = useState(false);
+export interface ContentProps {
+	initialized: boolean;
+	generatedPhrases: string[];
+	regeneratePhrases(): void;
+}
+
+const Content: React.FC<ContentProps> = (props: ContentProps) => {
+	const {
+		initialized,
+		generatedPhrases,
+		regeneratePhrases
+	} = props;
+
 	const [lastCopiedPhrase, setLastCopiedPhrase] = useState('');
-	const [generatedPhrases, setGeneratedPhrases] = useState([]);
 
-	const regenerate = () => {
-	};
-
-	const copyToClipboard = () => {
+	const copyToClipboard = async (phrase: string) => {
+		await navigator.clipboard.writeText(phrase);
+		setLastCopiedPhrase(phrase);
 	};
 
 	return (
@@ -22,17 +31,17 @@ function Content(): JSX.Element {
 				}
 				{initialized &&
 				<>
-					<button className="regenerate-button" onClick={regenerate}>
+					<button className="regenerate-button" onClick={regeneratePhrases}>
 						Regenerate
 					</button>
 					<div className="phrase-generation-output">
 						{generatedPhrases.map(phrase => (
-							<div className="phrase-row">
+							<div key={phrase} className="phrase-row">
 								<div className={"phrase-value-col" + (phrase === lastCopiedPhrase ? "last-copied-value": "")}>
 									{phrase}
 								</div>
 								<div className="phrase-copy-button-col">
-									<button onClick={copyToClipboard}>
+									<button onClick={() => copyToClipboard(phrase)}>
 										{phrase === lastCopiedPhrase ? 'Copied!' : 'Copy'}
 									</button>
 								</div>

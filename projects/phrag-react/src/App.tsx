@@ -8,7 +8,6 @@ import { PhraseGenerator } from './models/phrase-generator';
 import { getDefaultGeneratorOptions, PhraseGenerationOptions } from './models/phrase-generator-options';
 import { getSpecialCharsExtra } from './models/charsets';
 
-const appVersion = '1.0.0';
 const phraseCount = 10;
 const generatorOptions: PhraseGenerationOptions = getDefaultGeneratorOptions();
 const extraSpecialChars = getSpecialCharsExtra();
@@ -61,7 +60,7 @@ const App: React.FC = () => {
 				initialized={initialized}
 				generatedPhrases={generatedPhrases}
 				regeneratePhrases={regeneratePhrases} />
-			<Footer initialized={initialized} appVersion={appVersion} />
+			<Footer initialized={initialized} appVersion={APP_VERSION} />
 		</>
 	);
 };

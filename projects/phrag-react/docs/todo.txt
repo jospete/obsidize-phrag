@@ -1,0 +1,4 @@
+- settings dropdown should have a slider option to customize target output length
+- special characters in settings dropdown should have a multi-select for better control
+- leet-speak option should have a setting menu option to be turned off
+- generated phrases should try to follow basic english rules (e.g. Adjective -> Adjective -> Noun, Noun -> Adverb -> Adjective -> Noun, etc.)

@@ -17,7 +17,7 @@ const SettingsMenu: React.FC<SettingsMenuProps> = (props: SettingsMenuProps) => 
 	} = props;
 
 	return (
-		<div className={"settings" + (settingsVisible ? 'visible' : '')}>
+		<div className={"settings" + (settingsVisible ? ' visible' : '')}>
 			<div className="settings-inner">
 				<div className="setting-option">
 					<div className="settings-option-label-wrapper">

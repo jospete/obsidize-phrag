@@ -2,14 +2,13 @@ import fs from 'fs';
 import path from 'path';
 
 async function main() {
-
 	const cwd = process.cwd();
 	const inputDirectory = path.resolve(cwd, 'dist');
 	const outputDirectory = path.resolve(cwd, '..', '..', 'docs');
 	console.log(`copy build ${inputDirectory} -> ${outputDirectory}`);
 
-	if (!fs.existsSync(absPath)) {
-		fs.mkdirSync(absPath, { recursive: true });
+	if (!fs.existsSync(outputDirectory)) {
+		fs.mkdirSync(outputDirectory, { recursive: true });
 	}
 
 	fs.rmSync(outputDirectory, { recursive: true, force: true });

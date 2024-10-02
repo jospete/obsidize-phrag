@@ -12,6 +12,7 @@ export class PhraseGenerator {
 
 	private constructor(private readonly words: string[]) {
 		this.leetSpeak = getDefaultLeetSpeakMap();
+		console.log(`PhraseGenerator initialized with ${this.words.length} words`);
 	}
 
 	public static async createAsync(): Promise<PhraseGenerator> {

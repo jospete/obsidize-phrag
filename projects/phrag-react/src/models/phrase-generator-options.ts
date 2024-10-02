@@ -15,7 +15,7 @@ export interface PhraseGenerationOptions {
 }
 
 const phraseGenerationDefaults: PhraseGenerationOptions = {
-	requiredLength: 16,
+	requiredLength: 20,
 	capitalizationMode: CapitalizationMode.TITLE_CASE,
 	useLeetSpeak: false,
 	includeSpecialCharacters: specialCharsBase

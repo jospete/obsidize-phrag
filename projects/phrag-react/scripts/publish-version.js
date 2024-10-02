@@ -1,9 +1,9 @@
+import { fs } from 'fs';
 import { execSync } from 'child_process';
-import { version } from '../package.json' assert { type: 'json' };
 
 function git(cmd) {
 	const combinedCmd = `git ${cmd}`;
-	console.log(combinedCmd);
+	console.log(`> ${combinedCmd}`);
 	return execSync(combinedCmd, { stdio: 'pipe' });
 }
 
@@ -15,6 +15,7 @@ function getCurrentBranch() {
 
 async function main() {
 	const currentBranch = getCurrentBranch();
+	const {version} = JSON.parse(fs.readFileSync('./package.json'));
 
 	git(`add --all`);
 	git(`commit -m "v${version}"`);

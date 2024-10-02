@@ -1,5 +1,6 @@
 import React from 'react';
 import githubLogo from '../../assets/icons/github-mark.svg';
+import './Footer.css';
 
 export interface FooterProps {
 	initialized: boolean;

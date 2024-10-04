@@ -18,7 +18,11 @@ const PhraseRowItem: React.FC<PhraseRowItemProps> = (props: PhraseRowItemProps) 
 
 	const [previousPhrase, setPreviousPhrase] = useState(phrase);
 	const [phraseChanged, setPhraseChanged] = useState(false);
-	let phraseValueClasses = 'phrase-value-col' + (isLastCopied ? ' last-copied-value': '');
+	let phraseValueClasses = 'phrase-value-col';
+
+	if (isLastCopied) {
+		phraseValueClasses += ' last-copied-value';
+	}
 
 	if (!phraseChanged && previousPhrase !== phrase) {
 		setTimeout(() => {

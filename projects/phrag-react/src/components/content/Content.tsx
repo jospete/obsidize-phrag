@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PhraseRowItem from '../phrase-row-item/PhraseRowItem';
 import './Content.css';
 
 export interface ContentProps {
@@ -32,17 +33,13 @@ const Content: React.FC<ContentProps> = (props: ContentProps) => {
 					Regenerate
 				</button>
 				<div className="phrase-generation-output">
-					{generatedPhrases.map(phrase => (
-						<div key={phrase} className="phrase-row">
-							<div className={"phrase-value-col" + (phrase === lastCopiedPhrase ? " last-copied-value": "")}>
-								{phrase}
-							</div>
-							<div className="phrase-copy-button-col">
-								<button onClick={() => copyToClipboard(phrase)}>
-									{phrase === lastCopiedPhrase ? 'Copied!' : 'Copy'}
-								</button>
-							</div>
-						</div>
+					{generatedPhrases.map((phrase, i) => (
+						<PhraseRowItem
+							key={i}
+							rowId={i}
+							phrase={phrase}
+							isLastCopied={phrase === lastCopiedPhrase}
+							onCopy={copyToClipboard} />
 					))}
 				</div>
 			</div>

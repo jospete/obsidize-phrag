@@ -1,0 +1,91 @@
+.phrase-row {
+	width: 100%;
+	max-width: 550px;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	margin-bottom: 4px;
+	background-color: rgba(145, 145, 190, 0.25);
+	padding: 8px 16px;
+}
+
+.phrase-value-col {
+	font-size: 1.1em;
+	line-height: 1.6em;
+	vertical-align: bottom;
+	color: #585858;
+	white-space: normal;
+	word-break: break-all;
+	padding-right: 12px;
+	transition: all 80ms linear;
+}
+
+.phrase-value-col.last-copied-value {
+	color: var(--color-success);
+	-webkit-transition: color 80ms linear;
+	-ms-transition: color 80ms linear;
+	transition: color 80ms linear;
+}
+
+/* Deals with ridiculously small screens */
+@media screen and (max-width: 375px) {
+	.phrase-value-col {
+		font-size: 0.82em;
+		line-height: 1.8em;
+	}
+}
+
+.phrase-copy-button-col {
+	float: right;
+	margin-right: 4px;
+}
+
+.phrase-copy-button-col>button {
+	font-size: 0.8em;
+	min-width: 60px;
+	min-height: 28px;
+	float: right;
+	background-color: #638083c0;
+}
+
+.phrase-copy-button-col>button:hover {
+	background-color: #7c9ea1c0;
+}
+
+.phrase-copy-button-col>button:active {
+	background-color: #e4e4e4c0;
+}
+
+.phrase-value-col.previous-phrase-value {
+	animation-duration: 280ms;
+	animation-fill-mode: forwards;
+	animation-name: phraseTextFlipOut;
+	position: absolute;
+}
+
+@keyframes phraseTextFlipOut {
+	from {
+		rotate: x 0deg;
+		opacity: 1;
+	}
+	to {
+		rotate: x 180deg;
+		opacity: 0;
+	}
+}
+
+.phrase-value-col.next-phrase-value {
+	animation-duration: 280ms;
+	animation-name: phraseTextFlipIn;
+}
+
+@keyframes phraseTextFlipIn {
+	from {
+		rotate: x 180deg;
+		opacity: 0;
+	}
+	to {
+		rotate: x 0deg;
+		opacity: 1;
+	}
+}

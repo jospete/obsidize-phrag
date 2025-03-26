@@ -18,9 +18,18 @@
 	word-break: break-all;
 	padding-right: 12px;
 	transition: all 80ms linear;
+	display: flex;
+	flex-direction: column;
 }
 
-.phrase-value-col.last-copied-value {
+.phrase-value-col>label.char-count-label {
+	font-size: 0.75em;
+	line-height: 1em;
+	color: #095e96bb;
+	padding-left: 6px;
+}
+
+.phrase-value-col.last-copied-value>label {
 	color: var(--color-success);
 	-webkit-transition: color 80ms linear;
 	-ms-transition: color 80ms linear;
@@ -38,6 +47,7 @@
 .phrase-copy-button-col {
 	float: right;
 	margin-right: 4px;
+	padding-top: 0.2em;
 }
 
 .phrase-copy-button-col>button {

@@ -38,16 +38,20 @@ const PhraseRowItem: React.FC<PhraseRowItemProps> = (props: PhraseRowItemProps) 
 		}, 300);
 	}
 
+	const mainPhrase = phraseChanged ? phrase : previousPhrase;
+
 	return (
 		<div className="phrase-row">
 			<div className={phraseValueClasses}>
-				{phraseChanged ? phrase : previousPhrase}
+				<label>{mainPhrase}</label>
+				<label className="char-count-label">{mainPhrase.length} Characters</label>
 			</div>
-			{phraseChanged &&
-			<div className="phrase-value-col previous-phrase-value">
-				{previousPhrase}
-			</div>
-			}
+			{phraseChanged && (
+				<div className="phrase-value-col previous-phrase-value">
+					<label>{previousPhrase}</label>
+					<label className="char-count-label">{previousPhrase.length} Characters</label>
+				</div>
+			)}
 			<div className="phrase-copy-button-col">
 				<button onClick={() => onCopy(phrase)}>
 					{isLastCopied ? 'Copied!' : 'Copy'}
